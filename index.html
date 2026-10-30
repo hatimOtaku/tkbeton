@@ -10,7 +10,7 @@
 <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
 <script>
 /* Set language/direction before first paint so Arabic never flashes as LTR French. */
-(function(){try{var l=localStorage.getItem('tk-lang');if(!l){var b=(navigator.language||'fr').slice(0,2);l=['fr','en','ar'].indexOf(b)>-1?b:'fr';}
+(function(){try{var l=localStorage.getItem('tk-lang');if(['fr','en','ar'].indexOf(l)<0){l='fr';}
 var d=document.documentElement;d.lang=l;d.dir=l==='ar'?'rtl':'ltr';}catch(e){}})();
 </script>
 <link rel="preload" as="image" href="images/slide1.jpg" fetchpriority="high">

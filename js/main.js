@@ -81,7 +81,6 @@
   doc.querySelectorAll('[data-lang]').forEach(function (b) {
     b.addEventListener('click', function () { applyLang(b.getAttribute('data-lang')); });
   });
-  var saved = safeGet('tk-lang');
-  var browser = (navigator.language || 'fr').slice(0, 2);
-  applyLang(saved || (SUPPORTED.indexOf(browser) > -1 ? browser : 'fr'));
+  /* French is the default; a visitor's own earlier choice is remembered. */
+  applyLang(safeGet('tk-lang') || 'fr');
 })();
