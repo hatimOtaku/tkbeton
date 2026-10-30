@@ -1,0 +1,560 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Oumaima · Your 12-Week Program</title>
+<meta name="description" content="Personal workout and flexible diet program for Oumaima.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fafaf8; --ink:#0b0b0c; --muted:#6b6b72; --line:#e8e6e1; --card:#ffffff;
+  --a:#ff7a59; --b:#a66bff; --c:#3dd6c6; --dark:#0b0b0c; --ok:#18a367; --warn:#e5484d;
+  --r:22px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.serif{font-family:"Instrument Serif",Georgia,serif;font-weight:400}
+a{color:inherit}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+section{padding:96px 0}
+h2{font-size:clamp(34px,5vw,56px);line-height:1.05;letter-spacing:-.02em;margin-bottom:14px}
+h2 em{font-family:"Instrument Serif",serif;font-weight:400}
+.kicker{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.kicker::before{content:"";width:22px;height:2px;background:linear-gradient(90deg,var(--a),var(--b))}
+.lead{color:var(--muted);font-size:18px;max-width:640px;margin-bottom:44px}
+
+/* ---------- Intro overlay ---------- */
+#intro{position:fixed;inset:0;z-index:100;background:#050506;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .9s ease,visibility .9s;color:#fff;overflow:hidden}
+#intro.done{opacity:0;visibility:hidden}
+#intro .glow{position:absolute;width:70vmin;height:70vmin;border-radius:50%;background:conic-gradient(from 0deg,var(--a),var(--b),var(--c),var(--a));filter:blur(90px);opacity:.35;animation:spin 9s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.wave{position:relative;display:flex;align-items:center;gap:5px;height:120px;margin-bottom:34px}
+.wave i{display:block;width:5px;border-radius:5px;background:linear-gradient(#fff,#cfc3ff);height:8px;animation:bar 1.2s ease-in-out infinite}
+@keyframes bar{0%,100%{height:8px;opacity:.5}50%{height:var(--h);opacity:1}}
+#hello{position:relative;font-size:clamp(44px,9vw,104px);letter-spacing:-.03em;line-height:1;text-align:center;padding:0 16px}
+#hello span{display:inline-block;opacity:0;transform:translateY(24px);filter:blur(10px);animation:in .8s cubic-bezier(.2,.8,.2,1) forwards}
+#hello .name{font-family:"Instrument Serif",serif;font-style:italic;background:linear-gradient(90deg,#ffb199,#c9a7ff,#8ff0e4);-webkit-background-clip:text;background-clip:text;color:transparent}
+@keyframes in{to{opacity:1;transform:none;filter:none}}
+#intro p{position:relative;margin-top:22px;color:#9a9aa3;opacity:0;animation:in 1s 2.1s forwards;font-size:15px}
+#skip{position:absolute;bottom:28px;background:none;border:1px solid #333;color:#aaa;border-radius:99px;padding:8px 18px;font:500 13px Inter;cursor:pointer}
+#skip:hover{color:#fff;border-color:#777}
+
+/* ---------- Nav ---------- */
+nav{position:sticky;top:0;z-index:50;background:rgba(250,250,248,.8);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+.logo{font-weight:700;letter-spacing:-.02em;display:flex;align-items:center;gap:8px}
+.logo b{width:22px;height:22px;border-radius:50%;background:conic-gradient(var(--a),var(--b),var(--c),var(--a))}
+nav ul{display:flex;gap:4px;list-style:none;overflow-x:auto}
+nav a{display:block;text-decoration:none;font-size:14px;color:var(--muted);padding:8px 12px;border-radius:99px;white-space:nowrap}
+nav a:hover{background:#efede8;color:var(--ink)}
+
+/* ---------- Hero ---------- */
+.hero{padding:90px 0 70px;position:relative;text-align:center}
+.orb{width:min(360px,70vw);aspect-ratio:1;margin:0 auto 36px;border-radius:50%;position:relative;background:radial-gradient(circle at 30% 30%,#fff,transparent 40%),conic-gradient(from 90deg,var(--a),var(--b),var(--c),var(--a));box-shadow:0 40px 100px -20px rgba(166,107,255,.55),inset 0 -20px 60px rgba(0,0,0,.12);animation:float 7s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-14px) scale(1.02)}}
+.hero h1{font-size:clamp(40px,7vw,84px);letter-spacing:-.035em;line-height:1;margin-bottom:20px}
+.hero h1 em{font-family:"Instrument Serif",serif;font-weight:400}
+.hero p{color:var(--muted);font-size:19px;max-width:560px;margin:0 auto 32px}
+.btn{display:inline-block;text-decoration:none;background:var(--ink);color:#fff;padding:14px 26px;border-radius:99px;font-weight:600;font-size:15px;transition:transform .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line);margin-left:8px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:70px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:24px 18px}
+.stat b{display:block;font-size:34px;letter-spacing:-.03em}
+.stat span{color:var(--muted);font-size:13px}
+
+/* ---------- Cards / grids ---------- */
+.grid{display:grid;gap:16px}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g2{grid-template-columns:repeat(2,1fr)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:26px}
+.card h3{font-size:19px;letter-spacing:-.01em;margin-bottom:8px}
+.card p,.card li{color:var(--muted);font-size:15px}
+.card ul{padding-left:18px}
+.ico{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;font-size:22px;background:linear-gradient(135deg,#ffe3da,#e6d8ff);margin-bottom:16px}
+.dark{background:var(--dark);color:#fff}
+.dark .lead,.dark .kicker{color:#9a9aa3}
+.dark .card{background:#141416;border-color:#26262a}
+.dark .card p,.dark .card li{color:#a5a5ae}
+
+/* ---------- Safety ---------- */
+.safety{background:#fff4f2;border:1px solid #ffd3cb;border-radius:var(--r);padding:28px;display:grid;grid-template-columns:1.1fr 1fr;gap:28px}
+.safety h3{margin-bottom:10px;font-size:22px}
+.safety li{margin:6px 0 6px 18px;font-size:15px}
+.rule15{background:#fff;border-radius:18px;padding:20px;border:1px solid #ffd3cb}
+.rule15 ol{margin-left:18px;font-size:15px}.rule15 li{margin:6px 0}
+
+/* ---------- Plate ---------- */
+.plate{display:grid;grid-template-columns:320px 1fr;gap:40px;align-items:center}
+.pie{width:300px;aspect-ratio:1;border-radius:50%;background:conic-gradient(#3dd6c6 0 50%,#ff7a59 50% 75%,#a66bff 75% 100%);position:relative;margin:auto;box-shadow:0 30px 60px -20px rgba(0,0,0,.3)}
+.pie::after{content:"";position:absolute;inset:34%;background:var(--bg);border-radius:50%}
+.legend div{display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--line)}
+.legend i{width:14px;height:14px;border-radius:50%;margin-top:5px;flex:none}
+.legend b{display:block}.legend span{color:var(--muted);font-size:14px}
+.macros{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:36px 0}
+.macro{background:var(--ink);color:#fff;border-radius:var(--r);padding:22px}
+.macro b{font-size:28px;letter-spacing:-.02em;display:block}.macro span{font-size:13px;color:#a5a5ae}
+
+/* ---------- Day builder ---------- */
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+.chip{border:1px solid var(--line);background:#fff;border-radius:99px;padding:9px 16px;font:500 14px Inter;cursor:pointer;color:var(--ink)}
+.chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.meals{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.meal{background:#fff;border:2px solid var(--line);border-radius:18px;padding:20px;cursor:pointer;text-align:left;font:inherit;color:inherit;transition:.2s}
+.meal:hover{transform:translateY(-3px);box-shadow:0 14px 30px -14px rgba(0,0,0,.2)}
+.meal.sel{border-color:var(--b);background:linear-gradient(#fff,#f6f0ff)}
+.meal h4{font-size:16px;margin-bottom:6px}
+.meal p{font-size:13.5px;color:var(--muted);margin-bottom:12px}
+.tags{display:flex;gap:6px;flex-wrap:wrap}
+.tags span{font-size:12px;font-weight:600;background:#f1efea;border-radius:99px;padding:3px 10px}
+.tags .k{background:#ffe9e2}.tags .p{background:#e1f7f3}
+.total{position:sticky;bottom:14px;margin-top:24px;background:var(--ink);color:#fff;border-radius:20px;padding:18px 24px;display:flex;gap:26px;align-items:center;flex-wrap:wrap;box-shadow:0 20px 40px -10px rgba(0,0,0,.4)}
+.total div{font-size:13px;color:#a5a5ae}.total b{display:block;font-size:24px;color:#fff;letter-spacing:-.02em}
+.total .msg{margin-left:auto;font-size:14px;max-width:260px}
+.free{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}.free span{background:#e1f7f3;border-radius:99px;padding:6px 14px;font-size:14px}
+
+/* ---------- Training ---------- */
+.phases{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:34px}
+.phase{border-radius:var(--r);padding:24px;background:#141416;border:1px solid #26262a}
+.phase small{color:var(--c);font-weight:600;letter-spacing:.1em;font-size:12px}
+.phase h3{font-size:22px;margin:6px 0 8px}
+.phase p{font-size:14.5px;color:#a5a5ae}
+.days{display:flex;gap:8px;overflow-x:auto;padding-bottom:8px;margin-bottom:18px}
+.day{flex:1 0 auto;min-width:92px;background:#141416;border:1px solid #26262a;color:#fff;border-radius:16px;padding:12px 16px;cursor:pointer;font:600 14px Inter;text-align:left}
+.day small{display:block;font-weight:400;color:#8b8b95;font-size:12px}
+.day.on{background:#fff;color:var(--ink)}.day.on small{color:var(--muted)}
+.panel{background:#141416;border:1px solid #26262a;border-radius:var(--r);padding:28px}
+.panel h3{font-size:26px;letter-spacing:-.02em;margin-bottom:4px}
+.panel>p{color:#a5a5ae;margin-bottom:18px}
+.ex{display:grid;grid-template-columns:1fr auto;gap:4px 16px;padding:14px 0;border-top:1px solid #26262a}
+.ex b{font-weight:600}.ex span{color:var(--c);font-weight:600;font-size:14px;text-align:right}.ex em{grid-column:1/-1;color:#8b8b95;font-style:normal;font-size:13.5px}
+.why{margin-top:26px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+
+/* ---------- Do / Don't ---------- */
+.dd{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.dd .card.do{border-top:4px solid var(--ok)}.dd .card.dont{border-top:4px solid var(--warn)}
+.dd li{list-style:none;padding:10px 0 10px 30px;position:relative;border-bottom:1px solid var(--line);color:var(--ink);font-size:15px}
+.dd ul{padding:0}.dd li:last-child{border:0}
+.do li::before{content:"✓";position:absolute;left:0;color:var(--ok);font-weight:700}
+.dont li::before{content:"✕";position:absolute;left:0;color:var(--warn);font-weight:700}
+
+/* ---------- Tracker ---------- */
+.trk{display:grid;grid-template-columns:1.3fr 1fr;gap:16px}
+.trk input{font:inherit;padding:11px 14px;border-radius:12px;border:1px solid var(--line);width:100%;background:#fff}
+.row{display:flex;gap:8px;margin:12px 0}
+.row button{white-space:nowrap;border:0;background:var(--ink);color:#fff;border-radius:12px;padding:0 20px;font:600 14px Inter;cursor:pointer}
+svg.chart{width:100%;height:210px;display:block}
+.check label{display:flex;gap:12px;align-items:center;padding:11px 0;border-bottom:1px solid var(--line);cursor:pointer;font-size:15px}
+.check input{width:20px;height:20px;accent-color:var(--b)}
+.check .bar{height:8px;background:#efede8;border-radius:9px;margin:6px 0 14px;overflow:hidden}
+.check .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--a),var(--b));transition:width .4s}
+.mini{font-size:13px;color:var(--muted)}
+footer{padding:50px 0 70px;text-align:center;color:var(--muted);font-size:14px;border-top:1px solid var(--line)}
+footer .serif{font-size:34px;color:var(--ink);display:block;margin-bottom:8px}
+
+.rv{opacity:0;transform:translateY(26px);transition:opacity .8s,transform .8s}
+.rv.in{opacity:1;transform:none}
+
+@media(max-width:860px){
+  section{padding:70px 0}
+  .stats,.macros{grid-template-columns:repeat(2,1fr)}
+  .g3,.g2,.meals,.phases,.why,.dd,.trk,.safety,.plate{grid-template-columns:1fr}
+  .total .msg{margin-left:0;max-width:none}
+  nav ul{display:none}
+  .pie{width:240px}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}#hello span,#intro p{opacity:1;transform:none;filter:none}}
+</style>
+</head>
+<body>
+
+<!-- ============ INTRO ============ -->
+<div id="intro" role="dialog" aria-label="Welcome">
+  <div class="glow"></div>
+  <div class="wave" id="wave"></div>
+  <h1 id="hello"></h1>
+  <p>Your personal 12-week program is ready.</p>
+  <button id="skip">Skip intro</button>
+</div>
+
+<nav>
+  <div class="wrap">
+    <div class="logo"><b></b> Oumaima</div>
+    <ul>
+      <li><a href="#plan">The plan</a></li>
+      <li><a href="#safety">Safety</a></li>
+      <li><a href="#eat">Eating</a></li>
+      <li><a href="#menu">Meals</a></li>
+      <li><a href="#train">Training</a></li>
+      <li><a href="#rules">Do &amp; Don't</a></li>
+      <li><a href="#track">Tracker</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="orb rv"></div>
+    <h1 class="rv">Hello <em>Oumaima.</em><br>Let's build a stronger you.</h1>
+    <p class="rv">Twelve weeks of smart cardio, gentle strength training and food you actually enjoy — designed around your diabetes, not against it.</p>
+    <div class="rv"><a class="btn" href="#plan">See your plan</a><a class="btn ghost" href="#menu">Pick today's meals</a></div>
+    <div class="stats rv">
+      <div class="stat"><b>12</b><span>weeks</span></div>
+      <div class="stat"><b>5–6</b><span>active days / week</span></div>
+      <div class="stat"><b>~1,450</b><span>kcal a day (flexible)</span></div>
+      <div class="stat"><b>10k</b><span>steps a day</span></div>
+    </div>
+  </div>
+</header>
+
+<section id="plan">
+  <div class="wrap">
+    <div class="kicker">The big picture</div>
+    <h2 class="rv">Three pillars. <em>One routine.</em></h2>
+    <p class="lead rv">Fat loss happens in the kitchen and on the cardio machines. Strength training is what keeps your skin firm and your shape toned as the weight comes off.</p>
+    <div class="grid g3">
+      <div class="card rv"><div class="ico">🥗</div><h3>Flexible eating</h3><p>A daily calorie and protein target, with dozens of interchangeable meals. Pick what you feel like — every option fits the plan.</p></div>
+      <div class="card rv"><div class="ico">🏃‍♀️</div><h3>Cardio first</h3><p>Incline walking, bike, elliptical and intervals do the heavy lifting for fat loss, and they're gentle on blood sugar when done right.</p></div>
+      <div class="card rv"><div class="ico">🏋️‍♀️</div><h3>Strength 3× a week</h3><p>Muscle fills out the skin, speeds your metabolism and improves insulin sensitivity — the best friend of anyone with diabetes.</p></div>
+    </div>
+    <div class="grid g3" style="margin-top:16px">
+      <div class="card rv"><h3>Weekly pace</h3><p>Aim for a steady drop of roughly 1–1.5 kg per week. Faster is not better: very fast loss risks lows, muscle loss and loose skin.</p></div>
+      <div class="card rv"><h3>Weigh-in once a week</h3><p>Same day, same time, morning, after the bathroom. Daily weight swings are water — ignore them.</p></div>
+      <div class="card rv"><h3>Adjust, don't quit</h3><p>If the scale stalls for 2 weeks, we tweak food or cardio slightly. One bad day changes nothing.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="safety" style="padding-top:0">
+  <div class="wrap">
+    <div class="kicker">Diabetes first</div>
+    <h2 class="rv">Safety <em>comes before speed.</em></h2>
+    <div class="safety rv">
+      <div>
+        <h3>Before you start</h3>
+        <ul>
+          <li><b>Tell your doctor</b> about this plan. As weight and food change, your medication or insulin needs may change too — never adjust doses on your own.</li>
+          <li><b>Check your glucose</b> before and after every workout, and during long sessions (over 60 min).</li>
+          <li><b>Start a workout</b> with glucose roughly 100–250 mg/dL (5.6–13.9 mmol/L). Under 100 → eat 15 g of carbs first. Over 250 with symptoms or ketones → skip it.</li>
+          <li><b>Never skip meals</b> to "save" calories. Steady meals = steady sugar.</li>
+          <li>Check your feet daily, wear proper shoes and socks, and keep water close.</li>
+          <li>Always carry fast sugar and your phone. Tell the gym staff or a friend you're diabetic.</li>
+        </ul>
+      </div>
+      <div class="rule15">
+        <h3>If you feel low (shaky, sweaty, dizzy, hungry)</h3>
+        <ol>
+          <li>Stop exercising immediately and sit down.</li>
+          <li>Take <b>15 g fast carbs</b>: 3–4 glucose tablets, ½ cup juice, or 1 tbsp honey/sugar.</li>
+          <li>Wait <b>15 minutes</b> and recheck.</li>
+          <li>Still under 70 mg/dL (3.9 mmol/L)? Repeat.</li>
+          <li>Once normal, eat a small snack with protein. Skip the rest of that workout.</li>
+        </ol>
+        <p class="mini" style="margin-top:12px">Severe symptoms, confusion or fainting → call emergency services.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="eat" class="dark">
+  <div class="wrap">
+    <div class="kicker">Eating</div>
+    <h2 class="rv">Build every plate <em>the same way.</em></h2>
+    <p class="lead rv">You don't need to count everything. Use the plate, hit your protein, and let the menu below do the rest.</p>
+    <div class="plate rv">
+      <div class="pie"></div>
+      <div class="legend">
+        <div><i style="background:#3dd6c6"></i><p><b>½ plate · non-starchy vegetables</b><span>Salad, courgette, broccoli, peppers, tomatoes, green beans. Eat as much as you like.</span></p></div>
+        <div><i style="background:#ff7a59"></i><p><b>¼ plate · lean protein</b><span>Chicken, turkey, fish, eggs, lean beef, legumes, yogurt. Protects muscle and keeps you full.</span></p></div>
+        <div><i style="background:#a66bff"></i><p><b>¼ plate · smart carbs</b><span>Quinoa, oats, lentils, sweet potato, brown rice, whole-grain bread. Small, measured portions.</span></p></div>
+      </div>
+    </div>
+    <div class="macros rv" style="margin-top:50px">
+      <div class="macro"><b>1,400–1,500</b><span>kcal / day</span></div>
+      <div class="macro"><b>100–110 g</b><span>protein / day</span></div>
+      <div class="macro"><b>120–150 g</b><span>carbs, spread over the day</span></div>
+      <div class="macro"><b>30 g+</b><span>fibre &amp; 2.5 L water</span></div>
+    </div>
+    <div class="grid g3">
+      <div class="card rv"><h3>5 small meals</h3><p>Breakfast, snack, lunch, snack, dinner — about every 3–4 hours. Keeps sugar even and hunger low.</p></div>
+      <div class="card rv"><h3>Carbs in company</h3><p>Never eat carbs alone. Pair them with protein, fibre or healthy fat to slow the glucose rise.</p></div>
+      <div class="card rv"><h3>Dinner by 8 pm</h3><p>Finish eating 2–3 hours before bed for better overnight sugar and sleep.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="menu">
+  <div class="wrap">
+    <div class="kicker">Meal builder</div>
+    <h2 class="rv">Choose your day. <em>Any combo works.</em></h2>
+    <p class="lead rv">Tap one option per meal. The counter below shows how close you are to your daily target. Calories are estimates — portions matter.</p>
+    <div class="chips" id="chips"></div>
+    <div id="menuBody"></div>
+    <div class="total" id="total">
+      <div>Calories<b id="tK">0</b></div>
+      <div>Protein<b id="tP">0 g</b></div>
+      <div>Carbs<b id="tC">0 g</b></div>
+      <div class="msg" id="tM">Pick a breakfast, two snacks, a lunch and a dinner.</div>
+    </div>
+    <div class="card rv" style="margin-top:26px">
+      <h3>Free foods — unlimited</h3>
+      <div class="free"><span>Water</span><span>Unsweetened tea</span><span>Black coffee</span><span>Cucumber</span><span>Lettuce &amp; greens</span><span>Herbs &amp; spices</span><span>Lemon</span><span>Vinegar</span><span>Clear broth</span><span>Sparkling water</span></div>
+      <p class="mini" style="margin-top:14px">Cooking: grill, bake, steam or air-fry. Max 1 tbsp olive oil per meal. Weekly flexibility: one "free-ish" meal per week is fine — keep the portion sensible and stay with your glucose checks.</p>
+    </div>
+  </div>
+</section>
+
+<section id="train" class="dark">
+  <div class="wrap">
+    <div class="kicker">Training</div>
+    <h2 class="rv">Your week <em>at the gym.</em></h2>
+    <p class="lead rv">Cardio is the engine; strength is the shaper. Tap a day to see exactly what to do.</p>
+    <div class="phases rv">
+      <div class="phase"><small>WEEKS 1–4</small><h3>Foundation</h3><p>Learn the machines and form. Cardio at an easy, chatty pace. Strength: 2 sets × 12–15 reps, light weights.</p></div>
+      <div class="phase"><small>WEEKS 5–8</small><h3>Build</h3><p>Longer cardio and first intervals. Strength: 3 sets × 10–12 reps. Add weight when the last 2 reps feel easy.</p></div>
+      <div class="phase"><small>WEEKS 9–12</small><h3>Sculpt</h3><p>More intervals, steady strength progress. Strength: 3 sets × 8–12 reps, shorter rests, great form.</p></div>
+    </div>
+    <div class="days" id="days"></div>
+    <div class="panel" id="panel"></div>
+    <div class="why">
+      <div class="card rv"><h3>Why strength matters</h3><p>As fat leaves, muscle underneath gives skin something to wrap around. It's the single best defence against looseness.</p></div>
+      <div class="card rv"><h3>Skin-friendly habits</h3><p>Hit your protein, drink water, lose weight at a steady pace, moisturise daily and get 7–8 hours of sleep.</p></div>
+      <div class="card rv"><h3>Daily movement</h3><p>On top of the gym: a 10-minute walk after your biggest meals lowers the glucose spike and burns extra calories.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="rules">
+  <div class="wrap">
+    <div class="kicker">The rules</div>
+    <h2 class="rv">Do this. <em>Not that.</em></h2>
+    <div class="dd" style="margin-top:34px">
+      <div class="card do rv"><h3>Do</h3><ul>
+        <li>Check glucose before and after training</li>
+        <li>Eat protein at every meal and snack</li>
+        <li>Drink 2.5 L of water daily</li>
+        <li>Walk 10 minutes after main meals</li>
+        <li>Warm up 5–10 minutes, stretch at the end</li>
+        <li>Lift with control — slow down, full range</li>
+        <li>Sleep 7–8 hours</li>
+        <li>Prep meals on Sunday so choices are easy</li>
+        <li>Photograph progress every 2 weeks</li>
+        <li>Report any repeated lows or highs to your doctor</li>
+      </ul></div>
+      <div class="card dont rv"><h3>Don't</h3><ul>
+        <li>Skip meals or starve yourself</li>
+        <li>Train with a low glucose or an empty tank</li>
+        <li>Drink juice, soda or sweetened drinks (except to treat a low)</li>
+        <li>"Diet" foods full of hidden sugar</li>
+        <li>Change medication or insulin yourself</li>
+        <li>Do cardio only — strength is not optional</li>
+        <li>Weigh yourself every day and panic</li>
+        <li>Use laxatives, diuretics or fat-burner pills</li>
+        <li>Train through chest pain, dizziness or foot injuries</li>
+        <li>Compare yourself to anyone else</li>
+      </ul></div>
+    </div>
+  </div>
+</section>
+
+<section id="track" style="background:#f3f1ec">
+  <div class="wrap">
+    <div class="kicker">Tracker</div>
+    <h2 class="rv">Small wins, <em>every week.</em></h2>
+    <p class="lead rv">Saved on this device only. Log your weekly weight and tick off the week's habits.</p>
+    <div class="trk">
+      <div class="card rv">
+        <h3>Weekly weigh-in (kg)</h3>
+        <div class="row"><input id="wIn" type="number" step="0.1" placeholder="e.g. 80.4"><button id="wAdd">Add</button></div>
+        <svg class="chart" id="chart" viewBox="0 0 500 210" preserveAspectRatio="none"></svg>
+        <p class="mini" id="wInfo">Start weight: 82 kg. Log your first weigh-in above.</p>
+        <button class="chip" id="wClear" style="margin-top:10px">Reset</button>
+      </div>
+      <div class="card check rv">
+        <h3>This week's habits</h3>
+        <div class="bar"><i id="cBar"></i></div>
+        <div id="checks"></div>
+        <button class="chip" id="cClear" style="margin-top:12px">New week</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span class="serif">You've got this, Oumaima.</span>
+    This program is general guidance, not medical advice. Keep your doctor in the loop.
+  </div>
+</footer>
+
+<script>
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const store={get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+
+/* ---------- Intro ---------- */
+(function(){
+  const intro=$('#intro'), wave=$('#wave'), hello=$('#hello');
+  for(let i=0;i<41;i++){const b=document.createElement('i');const d=Math.abs(i-20);b.style.setProperty('--h',(18+Math.random()*30+(20-d)*3)+'px');b.style.animationDelay=(i*0.045)+'s';b.style.animationDuration=(0.9+Math.random()*0.7)+'s';wave.appendChild(b)}
+  let delay=0.35;
+  const add=(txt,cls)=>{[...txt].forEach(ch=>{const s=document.createElement('span');s.textContent=ch===' '?' ':ch;if(cls)s.className=cls;s.style.animationDelay=(delay+=0.055)+'s';hello.appendChild(s)})};
+  add('Hello ');add('Oumaima','name');
+  let closed=false;
+  const close=()=>{if(closed)return;closed=true;intro.classList.add('done');document.body.style.overflow='';setTimeout(()=>intro.remove(),1000)};
+  document.body.style.overflow='hidden';
+  $('#skip').onclick=close;
+  setTimeout(close,3800);
+})();
+
+/* ---------- Reveal on scroll ---------- */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+$$('.rv').forEach(el=>io.observe(el));
+
+/* ---------- Meals ---------- */
+const MEALS={
+ Breakfast:[
+  ['Veggie omelette','2 eggs + 1 white, spinach, tomato, mushrooms, 1 slice whole-grain toast',320,22,16],
+  ['Greek yogurt bowl','200 g plain 0% yogurt, berries, 15 g walnuts, cinnamon',280,24,18],
+  ['Protein oats','40 g oats, 150 g skyr, 1 tbsp chia, ½ apple',340,26,38],
+  ['Avocado toast + egg','1 slice whole-grain, ¼ avocado, poached egg, tomato',300,14,24],
+  ['Cottage cheese plate','150 g cottage cheese, cucumber, tomato, olives, 1 rye crispbread',260,22,14],
+  ['Chia pudding','3 tbsp chia, 200 ml unsweetened almond milk, 1 scoop protein, berries',290,22,20]],
+ Snack:[
+  ['Apple + almonds','1 small apple + 10 almonds',150,4,22],
+  ['Two boiled eggs','With salt, pepper and paprika',140,12,1],
+  ['Veg sticks + hummus','Cucumber and carrot with 2 tbsp hummus',110,4,12],
+  ['Skyr &amp; cinnamon','150 g plain skyr',95,16,6],
+  ['Nut handful','20 g unsalted mixed nuts',120,4,4],
+  ['Celery + peanut butter','3 celery sticks + 1 tbsp natural peanut butter',100,4,4]],
+ Lunch:[
+  ['Grilled chicken bowl','150 g chicken, greens, 80 g chickpeas, lemon + 1 tsp olive oil',430,40,28],
+  ['Light lentil soup','300 ml harira-style lentil soup, side salad, 1 boiled egg',380,24,40],
+  ['Tuna &amp; white bean salad','1 can tuna, 80 g beans, peppers, onion, parsley, 1 tbsp oil',400,38,24],
+  ['Light chicken tagine','150 g chicken, courgette, carrot, olives, 80 g cooked quinoa',440,38,32],
+  ['Turkey lettuce wraps','150 g turkey, crunchy veg, yogurt sauce, 80 g quinoa',420,36,28],
+  ['Baked fish + sweet potato','Fish fillet, roasted veg, 100 g sweet potato',410,36,30]],
+ Dinner:[
+  ['Grilled fish + greens','130 g fish, steamed broccoli, big salad',380,34,10],
+  ['Turkey “bolognese”','Courgette noodles, lean turkey, tomato sauce',340,34,16],
+  ['Shrimp stir-fry','Mixed veg, 1 tsp sesame oil, 60 g cooked brown rice',360,32,28],
+  ['Chicken kebab skewers','Grilled veg, yogurt-cucumber dip',370,40,12],
+  ['Veggie shakshuka','2 eggs in spiced tomato-pepper sauce, ½ slice bread',340,20,20],
+  ['Stuffed peppers','100 g lean beef, 40 g rice, herbs',380,28,28]]
+};
+const SLOTS=['Breakfast','Snack','Lunch','Snack','Dinner']; // order for the day
+const state={Breakfast:null,Snack:[],Lunch:null,Dinner:null};
+let tab='Breakfast';
+const chips=$('#chips'), body=$('#menuBody');
+Object.keys(MEALS).forEach(k=>{const c=document.createElement('button');c.className='chip';c.textContent=k+(k==='Snack'?'s (pick 2)':'');c.onclick=()=>{tab=k;renderMenu()};c.dataset.k=k;chips.appendChild(c)});
+function isSel(k,i){return k==='Snack'?state.Snack.includes(i):state[k]===i}
+function renderMenu(){
+  $$('.chip',chips).forEach(c=>c.classList.toggle('on',c.dataset.k===tab));
+  body.innerHTML='<div class="meals">'+MEALS[tab].map((m,i)=>`<button class="meal ${isSel(tab,i)?'sel':''}" data-i="${i}"><h4>${m[0]}</h4><p>${m[1]}</p><div class="tags"><span class="k">${m[2]} kcal</span><span class="p">${m[3]} g protein</span><span>${m[4]} g carbs</span></div></button>`).join('')+'</div>';
+  $$('.meal',body).forEach(b=>b.onclick=()=>{const i=+b.dataset.i;
+    if(tab==='Snack'){const s=state.Snack;const j=s.indexOf(i);if(j>-1)s.splice(j,1);else{if(s.length>=2)s.shift();s.push(i)}}
+    else state[tab]=state[tab]===i?null:i;
+    renderMenu();updateTotal()});
+}
+function updateTotal(){
+  let k=0,p=0,c=0,n=0;
+  const add=m=>{k+=m[2];p+=m[3];c+=m[4];n++};
+  ['Breakfast','Lunch','Dinner'].forEach(s=>{if(state[s]!==null)add(MEALS[s][state[s]])});
+  state.Snack.forEach(i=>add(MEALS.Snack[i]));
+  $('#tK').textContent=k;$('#tP').textContent=p+' g';$('#tC').textContent=c+' g';
+  let msg='Pick a breakfast, two snacks, a lunch and a dinner.';
+  if(n===5){msg=k<1300?'A bit low — add a snack or a bigger portion of veg/protein.':k>1550?'A little above target — trim a snack or carb portion.':'Right on target. Nice day. ✨'}
+  else if(n>0){msg=`${5-n} more meal${5-n>1?'s':''} to pick.`}
+  $('#tM').textContent=msg;
+}
+
+/* ---------- Training ---------- */
+const WARM='Warm-up: 5–10 min easy cardio + arm circles, hip circles, bodyweight squats.';
+const EX=(a)=>a.map(x=>`<div class="ex"><b>${x[0]}</b><span>${x[1]}</span><em>${x[2]}</em></div>`).join('');
+const PLAN=[
+ {d:'Mon',t:'Strength A',s:'Lower body &amp; core · 45 min',x:[
+  ['Goblet squat','3 × 10–15','Hold one dumbbell at chest. Sit back and down, chest tall.'],
+  ['Leg press','3 × 10–15','Feet shoulder-width, never lock knees.'],
+  ['Romanian deadlift (dumbbells)','3 × 10–12','Hinge at hips, soft knees, flat back.'],
+  ['Glute bridge / hip thrust','3 × 12–15','Squeeze glutes at the top for 1 second.'],
+  ['Walking lunges','2–3 × 10 per leg','Short steps, upright torso.'],
+  ['Plank','3 × 20–40 sec','Straight line from head to heels.'],
+  ['Finish: easy cardio','15–20 min','Bike or incline walk, conversation pace.']]},
+ {d:'Tue',t:'Cardio · Steady',s:'Fat-burning zone · 45–60 min',x:[
+  ['Incline treadmill walk','45–60 min','8–12% incline, 5.0–6.0 km/h. You can talk but not sing.'],
+  ['Heart-rate target','~60–70% max','Roughly 115–135 bpm. Check glucose at 30 min if going long.'],
+  ['Stretch','5–10 min','Calves, hamstrings, hips, chest.']]},
+ {d:'Wed',t:'Strength B',s:'Upper body &amp; core · 45 min',x:[
+  ['Lat pulldown','3 × 10–12','Pull to upper chest, squeeze shoulder blades.'],
+  ['Seated cable row','3 × 10–12','Chest up, no swinging.'],
+  ['Chest press machine','3 × 10–12','Smooth, controlled tempo.'],
+  ['Dumbbell shoulder press','3 × 10','Light weight, ribs down.'],
+  ['Biceps curl + triceps pushdown','2–3 × 12 each','Superset to save time.'],
+  ['Dead bug','3 × 10 per side','Lower back flat on the floor.'],
+  ['Finish: easy cardio','15–20 min','Elliptical or bike.']]},
+ {d:'Thu',t:'Cardio · Intervals',s:'Weeks 1–4 easy · weeks 5+ intervals · 40 min',x:[
+  ['Warm-up','5 min','Easy pace.'],
+  ['Intervals (bike or elliptical)','8 × (1 min hard + 2 min easy)','Weeks 1–4: 5 rounds, 30 s hard + 90 s easy. Hard = breathless but controlled.'],
+  ['Cool-down','5 min','Slow down and bring heart rate down.']]},
+ {d:'Fri',t:'Strength C',s:'Full body · 45 min',x:[
+  ['Step-ups','3 × 10 per leg','Knee tracks over toes.'],
+  ['Incline dumbbell press','3 × 10–12','Bench at 30°.'],
+  ['One-arm dumbbell row','3 × 12 per side','Back flat, pull elbow to hip.'],
+  ['Cable pull-through or kettlebell deadlift','3 × 12','Hips back, glutes squeeze.'],
+  ['Lateral raise','2–3 × 12–15','Very light. Lead with elbows.'],
+  ['Pallof press','3 × 10 per side','Resist rotation, core tight.'],
+  ['Finish: easy cardio','15–20 min','Incline walk.']]},
+ {d:'Sat',t:'Long Cardio',s:'Your calorie-burn day · 60–75 min',x:[
+  ['Choose one or mix','60–75 min','Incline walk, bike, elliptical or stair-climber at a steady pace. Weeks 1–4 build up from 45 min.'],
+  ['Hydration &amp; glucose','—','Check sugar every 30–40 min. Carry fast carbs.'],
+  ['Stretch &amp; foam roll','10 min','Hips, quads, calves, back.']]},
+ {d:'Sun',t:'Active Recovery',s:'Rest your muscles · 30–40 min',x:[
+  ['Easy walk outdoors','30–40 min','Fresh air, no pressure.'],
+  ['Mobility / gentle yoga','10–15 min','Hips, shoulders, spine.'],
+  ['Plan &amp; prep','—','Pick next week’s meals, prep proteins, shop.']]}
+];
+const days=$('#days'), panel=$('#panel');
+let dayIdx=Math.max(0,(new Date().getDay()+6)%7);
+function renderDays(){
+  days.innerHTML=PLAN.map((p,i)=>`<button class="day ${i===dayIdx?'on':''}" data-i="${i}">${p.d}<small>${p.t}</small></button>`).join('');
+  $$('.day',days).forEach(b=>b.onclick=()=>{dayIdx=+b.dataset.i;renderDays()});
+  const p=PLAN[dayIdx];
+  panel.innerHTML=`<h3>${p.t}</h3><p>${p.s}</p><div class="mini" style="color:#8b8b95;margin-bottom:6px">${WARM}</div>${EX(p.x)}`;
+}
+
+/* ---------- Tracker ---------- */
+const START=82;
+function drawChart(){
+  const w=store.get('weights',[]), svg=$('#chart');
+  const pts=[{x:0,y:START},...w.map((v,i)=>({x:i+1,y:v}))];
+  const W=500,H=210,pad=24, maxX=Math.max(12,pts.length-1);
+  const ys=pts.map(p=>p.y), lo=Math.min(60,...ys)-1, hi=Math.max(START,...ys)+1;
+  const X=x=>pad+x/maxX*(W-pad*2), Y=y=>pad+(hi-y)/(hi-lo)*(H-pad*2);
+  let g='';
+  for(let i=0;i<=12;i+=4)g+=`<text x="${X(i)}" y="${H-4}" font-size="11" fill="#999" text-anchor="middle">wk ${i}</text>`;
+  g+=`<line x1="${pad}" x2="${W-pad}" y1="${Y(62)}" y2="${Y(62)}" stroke="#a66bff" stroke-dasharray="4 4" opacity=".6"/><text x="${W-pad}" y="${Y(62)-5}" font-size="11" fill="#a66bff" text-anchor="end">goal 62 kg</text>`;
+  g+=`<path d="M${pts.map(p=>X(p.x)+','+Y(p.y)).join('L')}" fill="none" stroke="#ff7a59" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>`;
+  g+=pts.map(p=>`<circle cx="${X(p.x)}" cy="${Y(p.y)}" r="4.5" fill="#fff" stroke="#ff7a59" stroke-width="2.5"/>`).join('');
+  svg.innerHTML=g;
+  const last=w.length?w[w.length-1]:START, lost=(START-last).toFixed(1);
+  $('#wInfo').textContent=w.length?`Now ${last} kg · ${lost} kg down · ${(last-62).toFixed(1)} kg to your goal weight.`:'Start weight: 82 kg. Log your first weigh-in above.';
+}
+$('#wAdd').onclick=()=>{const v=parseFloat($('#wIn').value);if(!(v>30&&v<200))return;const w=store.get('weights',[]);w.push(v);store.set('weights',w);$('#wIn').value='';drawChart()};
+$('#wClear').onclick=()=>{if(confirm('Reset all weigh-ins?')){store.set('weights',[]);drawChart()}};
+
+const HABITS=['Hit protein target on 6+ days','Strength sessions done (3)','Cardio sessions done (3)','10k steps on most days','2.5 L water daily','Checked glucose around workouts','7+ hours sleep most nights','Weekly weigh-in logged'];
+function renderChecks(){
+  const s=store.get('habits',[]);
+  $('#checks').innerHTML=HABITS.map((h,i)=>`<label><input type="checkbox" data-i="${i}" ${s.includes(i)?'checked':''}> ${h}</label>`).join('');
+  $$('#checks input').forEach(c=>c.onchange=()=>{const cur=store.get('habits',[]);const i=+c.dataset.i;const n=c.checked?[...cur,i]:cur.filter(x=>x!==i);store.set('habits',n);bar()});
+  bar();
+}
+function bar(){$('#cBar').style.width=(store.get('habits',[]).length/HABITS.length*100)+'%'}
+$('#cClear').onclick=()=>{store.set('habits',[]);renderChecks()};
+
+renderMenu();updateTotal();renderDays();drawChart();renderChecks();
+</script>
+</body>
+</html>
